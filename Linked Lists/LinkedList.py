@@ -90,7 +90,7 @@ class LinkedList:
         return True
     
     # Removes head node of the linked list
-    def popfirst(self):
+    def pop_first(self):
         # if linked list is empty return nothing
         if self.size == 0:
             return None
@@ -115,7 +115,7 @@ class LinkedList:
         curr = self.head
         while curr:
             if i == index:
-                return curr.value
+                return curr
             curr = curr.next
             i += 1
         return None
@@ -158,6 +158,25 @@ class LinkedList:
             curr = curr.next
             i += 1
         return None
+    
+    def remove(self, index):
+        if index < 0 or index >= self.size:
+            return None
+        if index == 0:
+            return self.pop_first()
+        if index == self.size - 1:
+            return self.pop()
+        pre = self.get(index - 1)
+        temp = pre.next
+        pre.next = temp.next
+        temp.next = None
+        self.size -= 1
+        return temp
+
+                
+
+
+
             
 
 # Node constructor, create a new instance of a node. 
@@ -172,6 +191,7 @@ class Node:
 
 # Runs as main when file is ran by python
 # To run input 'python3 LinkedList.py"
+
         
 if __name__ == '__main__':
     new_list = LinkedList(10)
@@ -184,6 +204,8 @@ if __name__ == '__main__':
     new_list.insert(2,12)
     new_list.pop()
     new_list.prepend(5)
+    new_list.remove(5)
+    new_list.remove(2)
     new_list.print_list()
 
 
