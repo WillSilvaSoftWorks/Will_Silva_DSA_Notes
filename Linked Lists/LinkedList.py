@@ -1,6 +1,6 @@
 '''
 @author William Silva
-@version 10.12.24
+@version 10.13.24
 Description: This file is a linked list with linked list properties and methods.
 '''
 
@@ -30,7 +30,6 @@ class LinkedList:
                     return 
                 print("(",curr.value,")->", end = "")
                 curr = curr.next
-                
 
     '''
     @param value: value of node 
@@ -38,15 +37,15 @@ class LinkedList:
     Adds a new node to the end of the list
     '''
     def append(self,value):
-        new_list_node = Node(value)
+        linked_list_node = Node(value)
         # if list is empty, set h&t pointers to new list node.
         if self.head is None:
-             self.head = new_list_node
-             self.tail = new_list_node
+             self.head = linked_list_node
+             self.tail = linked_list_node
         # if list is not empty, add node to end of list. Change tail pointer
         else:
-            self.tail.next = new_list_node
-            self.tail = new_list_node
+            self.tail.next = linked_list_node
+            self.tail = linked_list_node
         self.size += 1 
         return True 
     
@@ -77,15 +76,15 @@ class LinkedList:
     '''
     def prepend(self,value):
         # Creates new node
-        new_list_node = Node(value)
+        linked_list_node = Node(value)
         if self.size == 0:
-            self.head = new_list_node
-            self.tail = new_list_node
+            self.head = linked_list_node
+            self.tail = linked_list_node
         else:
             # New node points to head
-            new_list_node.next = self.head
+            linked_list_node.next = self.head
             # Head pointer points to new node. Making a new head
-            self.head = new_list_node
+            self.head = linked_list_node
         self.size += 1
         return True
     
@@ -159,6 +158,10 @@ class LinkedList:
             i += 1
         return None
     
+    '''
+    @param index: position of node that is to be removed
+    Removes a node at a given index in a linked list.
+    '''
     def remove(self, index):
         if index < 0 or index >= self.size:
             return None
@@ -172,13 +175,26 @@ class LinkedList:
         temp.next = None
         self.size -= 1
         return temp
-
-                
-
-
-
-            
-
+    
+    # Reverses linked list
+    def reverse(self):
+        curr = self.head
+        # Sets head pointer to point at tail. 
+        self.head = self.tail
+        # Sets tail pointer to old head node.
+        self.tail = curr
+        # Pointer that save next node. curr will be these node after reversal.
+        curr_next = curr.next
+        temp = None
+        i = 0
+        # Goes through each node and sets pointer to temp node.
+        while i < self.size:
+            curr_next = curr.next
+            curr.next = temp
+            temp = curr
+            curr = curr_next
+            i += 1
+        
 # Node constructor, create a new instance of a node. 
 # @param value: any data type
 class Node:
@@ -187,26 +203,25 @@ class Node:
         self.value = value
         self.next = None
 
-# Creates new instance of a linked list and performs various operations.
-
-# Runs as main when file is ran by python
-# To run input 'python3 LinkedList.py"
-
-        
+'''
+Creates new instance of a linked list and performs various operations.
+Runs as main when file is ran by python
+To run input 'python3 LinkedList.py"
+'''    
 if __name__ == '__main__':
-    new_list = LinkedList(10)
-    new_list.append(1)
-    new_list.append(2)
-    new_list.append(3)
-    new_list.set(1,100)
-    new_list.set(1,-1)
-    new_list.insert(3,20)
-    new_list.insert(2,12)
-    new_list.pop()
-    new_list.prepend(5)
-    new_list.remove(5)
-    new_list.remove(2)
-    new_list.print_list()
-
-
-
+    linked_list = LinkedList(10)
+    linked_list.append(1)
+    linked_list.append(2)
+    linked_list.append(3)
+    linked_list.set(1,100)
+    linked_list.set(1,-1)
+    linked_list.insert(3,20)
+    linked_list.insert(2,12)
+    linked_list.pop()
+    linked_list.prepend(5)
+    linked_list.remove(5)
+    linked_list.remove(2)
+    linked_list.reverse()
+    linked_list.print_list()
+    linked_list.reverse()
+    linked_list.print_list()
